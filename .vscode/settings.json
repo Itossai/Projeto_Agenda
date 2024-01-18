@@ -1,5 +1,5 @@
 {
-    "window.zoomLevel": -3,
+    "window.zoomLevel": -1,
     "editor.fontSize": 24,
     "editor.hover.enabled": true,
     "workbench.startupEditor": "none",
@@ -28,16 +28,14 @@
       }
     },
     "python.languageServer": "Pylance",
-    "python.formatting.autopep8Args": [
+    "autopep8.args": [
       "--indent-size=4",
-      "--max-line-length=80"
+      "--max-line-length=80",
       // "--ignore=E111"
     ],
-    "python.linting.flake8Args": [
+    "flake8.args": [
       // "--ignore=E111",
     ],
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.analysis.diagnosticSeverityOverrides": {
@@ -49,6 +47,6 @@
     },
     "python.defaultInterpreterPath": "./venv/bin/python",
     "python.analysis.typeCheckingMode": "basic",
-    "cSpell.enabled": true,
-    "python.formatting.provider": "none"
+    "typescript.tsserver.web.projectWideIntellisense.enabled": true,
+    
   }
