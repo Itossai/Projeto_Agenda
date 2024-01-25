@@ -1,3 +1,7 @@
+# type : ignore[var-annotated]
+# flake8: noqa
+# type: ignore
+
 """
 Django settings for project project.
 
