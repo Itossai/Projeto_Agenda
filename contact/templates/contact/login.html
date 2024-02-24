@@ -9,7 +9,7 @@
         {% if user.is_authenticated %}
             <p>
                 Você fez o Login como {{user.username}}.
-                Clique <a href="{% url "contact:logout" %}">aqui</a>
+                Clique <a href="{% url 'contact:logout' %}">aqui</a>
                 para sair.
             </p>
         {% else %}
