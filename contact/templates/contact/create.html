@@ -9,19 +9,15 @@
         
         {% csrf_token %}
 
-        <div class="form-content">
-            <div class="form-group">
-                <label for="id_first_name">Primeiro Nome</label>
-                <input type="text" name="first_name" maxlength="255" id="id_first_name">
+        {% for field in form %}
+            <div class="form-content">
+                <div class="form-group">
+                    <label for={{field.id_for_label}}>{{field.label}}</label>
+                    {{field}}
+                </div>
             </div>
-        </div>
+        {% endfor %}
         
-        <div class="form-content">
-            <div class="form-group">
-                <label for="id_last_name">Ultimo Nome</label>
-                <input type="text" name="last_name" maxlength="255" id="id_last_name">
-            </div>
-        </div>
 
         <div class="form-content">
             <div class="form-group">
