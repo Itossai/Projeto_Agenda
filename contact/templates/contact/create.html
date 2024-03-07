@@ -14,11 +14,21 @@
                 <div class="form-group">
                     <label for={{field.id_for_label}}>{{field.label}}</label>
                     {{field}}
+                    {{field.errors}}
                 </div>
             </div>
         {% endfor %}
         
 
+        {% if form.non_field_erros %}
+            <div class="form-content">
+                <div class="form-group">
+                    <div class="message error">
+                        {{form.non_field_erros}}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div class="form-content">
             <div class="form-group">
                 <button class="btn" type="submit">Enviar </button>
