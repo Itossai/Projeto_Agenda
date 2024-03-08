@@ -49,7 +49,17 @@ class ContactForm(forms.ModelForm):
             }
         ),
         label='Primeiro Nome',
-        help_text='Texto de ajuda para seu usuário',
+        help_text='Digite o primeiro nome do Contato',
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'classe-a classe-b',
+                'placeholder': 'Escreva seu nome aqui',
+            }
+        ),
+        label='Ultimo Nome',
+        help_text='Digite o último nome do Contato',
     )
 
     class Meta:
@@ -59,12 +69,15 @@ class ContactForm(forms.ModelForm):
         )
 
     def clean(self):
-        # cleaned_data = self.cleaned_data
+        cleaned_data = self.cleaned_data
+        first_name = cleaned_data.get('first_name')
+        last_name = cleaned_data.get('last_name')
 
-        self.add_error('first_name', ValidationError(
-            'Mensagem de erro', code='invalid'))
+        if first_name == last_name:
+            msg = ValidationError(
+                'Primeiro e Último nomes não podem ser iguais',
+                code='invalid')
+            self.add_error('first_name', msg)
+            self.add_error('last_name', msg)
 
-        self.add_error('last_name', ValidationError(
-            'Mensagem de error 2', code='invalid'
-        ))
         return super().clean()
