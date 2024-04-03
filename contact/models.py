@@ -1,6 +1,11 @@
 # type: ignore[import-untyped], ignore[syntax]
 # type: ignore
-#
+""" Decorator responsável por tipar atributos de classe
+    Verificador de autenticação de Usuário
+    Modelo Padrão do Django
+    Define zona de tempo padrão do Django"""
+from dataclasses import dataclass
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -15,9 +20,14 @@ from django.utils import timezone
 # owner (foreign key)
 
 
+@dataclass
 class Category(models.Model):
+    """Modelo Padrão de Categoria, um atributo composto de um Contato"""
+    name: str
 
     class Meta:
+        """Faz com que Categoria seja definida com um outro nome
+            Ao invés de usar o nome 'Category' utiliar Categoria"""
         verbose_name = "Categoria"
         verbose_name_plural = "Categorias"
 
@@ -28,6 +38,9 @@ class Category(models.Model):
 
 
 class Contact(models.Model):
+
+    """Modelo Contatos do sistema de contatos do app"""
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, blank=True)
     phone = models.CharField(max_length=50)

@@ -1,3 +1,9 @@
+# type: ignore[import-untyped], ignore[syntax]
+# type: ignore
+""" Tras o formulário padronizado do Django
+    Formulário padrão de Criação de Usuário
+    Modelo Padrão de Usuários Django
+    Exceção para captura de validação de formulários enviados """
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -7,6 +13,7 @@ from . import models
 
 
 class RegisterForm(UserCreationForm):
+    """Formulário para Criação de Usuário na Agenda"""
     first_name = forms.CharField(
         required=True,
         min_length=3
@@ -18,6 +25,7 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField()
 
     class Meta:
+        """Classe Base-Modelo para Criação de Usuário na Agenda"""
         model = User
         fields = (
             'first_name',
@@ -29,6 +37,9 @@ class RegisterForm(UserCreationForm):
         )
 
     def clean_email(self):
+        """Método utilizado para pegar envio de formulários
+            e verificar se o email enviado existe dentro do
+            banco de usuários já cadastrados."""
         email = self.cleaned_data.get('email')
 
         if User.objects.filter(email=email).exists():
@@ -41,6 +52,7 @@ class RegisterForm(UserCreationForm):
 
 
 class ContactForm(forms.ModelForm):
+    """Formulário para Criação de Contatos na Agenda"""
     first_name = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -63,6 +75,7 @@ class ContactForm(forms.ModelForm):
     )
 
     class Meta:
+        """Classe Base-Modelo para Contatos na Agenda"""
         model = models.Contact
         fields = (
             'first_name', 'last_name', 'phone',

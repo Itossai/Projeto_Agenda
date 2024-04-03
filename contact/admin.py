@@ -1,3 +1,6 @@
+# type: ignore[import-untyped], ignore[syntax]
+# type: ignore
+"""Define área administrativa do Django e seus acessos"""
 from django.contrib import admin
 
 from contact import models
@@ -6,12 +9,16 @@ from contact import models
 # Register your models here.
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
+    """Define a visibilidade de consumo da Classe Category
+        na área administrativa do Django"""
     list_display = 'id', 'name',
     ordering = 'id',
 
 
 @admin.register(models.Contact)
 class ContactAdmin(admin.ModelAdmin):
+    """Define a visibilidade de consumo da Classe Category
+        na área administrativa do Django"""
     list_display = 'id', 'first_name', 'last_name', 'phone', 'show',
     ordering = 'id',
     search_fields = 'id', 'first_name', 'last_name',
