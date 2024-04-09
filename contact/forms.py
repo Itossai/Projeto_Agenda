@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 from . import models
+from .evalueted import email_validation
 
 
 class RegisterForm(UserCreationForm):
@@ -41,13 +42,14 @@ class RegisterForm(UserCreationForm):
             e verificar se o email enviado existe dentro do
             banco de usuários já cadastrados."""
         email = self.cleaned_data.get('email')
-
-        if User.objects.filter(email=email).exists():
+        # primeira mudança
+        if email_validation(User, email):
             self.add_error(
                 'email',
                 ValidationError('Um usuário com  este email já existe. ',
                                 code='invalid')
             )
+
         return email
 
 

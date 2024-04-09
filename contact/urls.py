@@ -1,4 +1,5 @@
 # type: ignore
+"""Modulo transmissor de caminhos das views"""
 from django.urls import path
 
 from contact import view
