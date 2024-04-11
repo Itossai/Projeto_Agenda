@@ -1,14 +1,19 @@
-
+# type: ignore[import-untyped], ignore[syntax]
+# type: ignore
+"""Impots de módulos do Django
+    e da aplicação e verificações"""
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
+from contact.evalueted import post_verification
 from contact.forms import ContactForm
 from contact.models import Contact
 
 
 def create(request):
+    """Creando contatos por meio dos formulários"""
     form_action = reverse('contact:create')
-    if request.method == 'POST':
+    if post_verification(request.method):
         form = ContactForm(data=request.POST)
         context = {
             'form': form,
@@ -37,11 +42,12 @@ def create(request):
 
 
 def update(request, contact_id):
+    """Atualizando contatos por meio dos formulários"""
 
     contact = get_object_or_404(Contact, pk=contact_id, show=True)
 
     form_action = reverse('contact:update', args=(contact_id,))
-    if request.method == 'POST':
+    if post_verification(request.method):
         form = ContactForm(data=request.POST, instance=contact)
         context = {
             'form': form,
@@ -70,7 +76,7 @@ def update(request, contact_id):
 
 
 def delete(request, contact_id):
-
+    """Creando contatos por meio dos formulários"""
     contact = get_object_or_404(Contact, pk=contact_id, show=True)
 
     confirmation = request.POST.get('confirmation', 'no')
