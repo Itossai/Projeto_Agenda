@@ -1,0 +1,27 @@
+#Trabalhando com o model do Django 
+from contact.models import Contact  
+#Cria um contato (Lazy)
+#Retorna o Contato 
+contact = Contact(**fields)
+contact.save()
+#Cria um contato (Não Lazy)
+#Retorna o contato
+contact=Contact.objects.create(**fields)
+#Seleciona com id = 10
+#Retorna o contato
+contact= Contact.objects.get(id=10)
+#Edita um contato
+#Retorna um contato
+contact.field_name1="Novo_valor 1"
+contact.field_name2="Novo_valor 2"
+contact.save()
+#Apaga um contato
+#Depende da base de dados, geralmente retorna número
+#de valores manipulados na base de dados
+contac.delete
+#Seleciona todos os contatos ordenados por id DESC
+#Retorna Query Set[]
+contacts = Contact.objects.all().order_by("-id)
+#Seleciona contatos usando filtros
+#Retorna QuerySet 
+contacts=Contact.objects.filter(**filters).order_by('-id')
