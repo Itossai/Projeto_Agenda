@@ -20,6 +20,7 @@
     {% endif %}</p>
     
 
+    {% if user == contact.owner %}
     
       <div class="contact-links">
         <a class="btn btn-link" href="{% url 'contact:update' contact.id %}">Update</a>
@@ -35,7 +36,7 @@
           {% endif %}
         </form>
       </div>
-    
+    {% endif %}
 
 
   </div>
