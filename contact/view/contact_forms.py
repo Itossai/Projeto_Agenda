@@ -4,7 +4,7 @@
     e da aplicação e verificações"""
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from contact.evalueted import post_verification
 from contact.forms import ContactForm
 from contact.models import Contact
@@ -48,7 +48,7 @@ def update(request, contact_id):
 
     form_action = reverse('contact:update', args=(contact_id,))
     if post_verification(request.method):
-        form = ContactForm(data=request.POST, instance=contact)
+        form = ContactForm(request.POST, request.FILES, instance=contact)
         context = {
             'form': form,
             'form_action': form_action
