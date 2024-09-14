@@ -2,12 +2,16 @@
 # type: ignore
 """Impots de módulos do Django
     e da aplicação e verificações"""
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+
 from contact.evalueted import post_verification
 from contact.forms import ContactForm
 from contact.models import Contact
+
+from .create_personality import contact_pre_save
+
 
 @login_required(login_url='contact:login')
 def create(request):
@@ -22,7 +26,9 @@ def create(request):
 
         if form.is_valid():
             contact = form.save(commit=False)
+            contact_pre_save(contact)
             contact.owner = request.user
+
             contact.save()
             return redirect('contact:update', contact_id=contact.pk)
         return render(
@@ -41,12 +47,14 @@ def create(request):
         context=context
     )
 
+
 @login_required(login_url='contact:login')
 def update(request, contact_id):
     """Atualizando contatos por meio dos formulários"""
 
-    contact = get_object_or_404(Contact, pk=contact_id, show=True, owner=request.user)
-
+    contact = get_object_or_404(
+        Contact, pk=contact_id, show=True, owner=request.user)
+    contact_pre_save(contact)
     form_action = reverse('contact:update', args=(contact_id,))
     if post_verification(request.method):
         form = ContactForm(request.POST, request.FILES, instance=contact)
@@ -56,6 +64,7 @@ def update(request, contact_id):
         }
 
         if form.is_valid():
+
             contact = form.save()
             return redirect('contact:update', contact_id=contact.pk)
         return render(
@@ -74,10 +83,12 @@ def update(request, contact_id):
         context=context
     )
 
+
 @login_required(login_url='contact:login')
 def delete(request, contact_id):
     """Creando contatos por meio dos formulários"""
-    contact = get_object_or_404(Contact, pk=contact_id, show=True, owner=request.user)
+    contact = get_object_or_404(
+        Contact, pk=contact_id, show=True, owner=request.user)
 
     confirmation = request.POST.get('confirmation', 'no')
 

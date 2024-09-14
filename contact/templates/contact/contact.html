@@ -18,6 +18,7 @@
         <img src="{{ contact.picture.url }}" alt="{{ contact.first_name }} {{ contact.last_name }}">
       </p>
     {% endif %}</p>
+    <p><b>Personality:</b> {{ contact.personality}}</p>
     
 
     {% if user == contact.owner %}
